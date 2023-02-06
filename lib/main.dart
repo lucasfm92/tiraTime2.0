@@ -81,6 +81,13 @@ class _HomePageState extends State<HomePage> {
   //  });
   //}
 
+  void deletePlayer(int index) {
+    setState(() {
+      teams[players[index].team].remove(players[index]);
+      players.removeAt(index);
+    });
+  }
+
   void sortTeams() {
     setState(() {
       players.sort((a, b) => b.averageAttribute.compareTo(a.averageAttribute));
@@ -108,6 +115,10 @@ class _HomePageState extends State<HomePage> {
                   title: Text(
                       '${players[index].name} - Team ${players[index].team + 1}'),
                   subtitle: Text('${players[index].averageAttribute}'),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete),
+                    onPressed: () => deletePlayer(index),
+                  ),
                 );
               },
             ),
